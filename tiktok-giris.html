@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TikTok girişi – Tarihsel Yapraklar</title>
+<style>
+body{font-family:Georgia,serif;background:#f0e6d0;color:#261c18;max-width:680px;margin:40px auto;padding:0 16px;line-height:1.6}
+h1{color:#961c1c}button{font:inherit;padding:8px 16px;background:#961c1c;color:#fff;border:0;border-radius:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>TikTok girişi</h1>
+<p id="durum">Kod okunuyor…</p>
+<p><button id="kopyala" hidden>Kodu kopyala</button></p>
+<script>
+// Kod sayfada gosterilmez; yalnizca panoya kopyalanir ve terminale yapistirilir.
+var p = new URLSearchParams(location.search), kod = p.get("code"), durum = document.getElementById("durum");
+if (kod) {
+  durum.textContent = "Giriş başarılı. Düğmeye basıp kodu kopyalayın, sonra terminale yapıştırın.";
+  var b = document.getElementById("kopyala"); b.hidden = false;
+  b.onclick = function () { navigator.clipboard.writeText(kod).then(function () { b.textContent = "Kopyalandı"; }); };
+} else {
+  durum.textContent = "Kod yok: " + (p.get("error_description") || p.get("error") || "giriş tamamlanmadı");
+}
+history.replaceState(null, "", location.pathname);
+</script>
+</body>
+</html>
